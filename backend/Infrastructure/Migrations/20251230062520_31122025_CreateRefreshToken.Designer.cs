@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251230062520_31122025_CreateRefreshToken")]
+    partial class _31122025_CreateRefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,84 +24,6 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Domain.Entities.EmailVerificationTokenEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Token")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("EmailVerificationToken", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.ExternalLoginEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ProvderUserId")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<string>("Provider")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ExternalLogins", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.PasswordResetTokenEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Token")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PasswordResetTokens", (string)null);
-                });
 
             modelBuilder.Entity("Domain.Entities.RefreshTokenEntity", b =>
                 {
@@ -128,9 +53,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Token")
-                        .IsUnique();
-
                     b.HasIndex("UserId");
 
                     b.ToTable("RefreshTokens", (string)null);
@@ -148,9 +70,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleName")
-                        .IsUnique();
 
                     b.ToTable("Roles", (string)null);
                 });
@@ -226,39 +145,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("UserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.EmailVerificationTokenEntity", b =>
-                {
-                    b.HasOne("Domain.Entities.UserEntity", "User")
-                        .WithMany("EmailVerificationTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ExternalLoginEntity", b =>
-                {
-                    b.HasOne("Domain.Entities.UserEntity", "User")
-                        .WithMany("ExternalLogins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.PasswordResetTokenEntity", b =>
-                {
-                    b.HasOne("Domain.Entities.UserEntity", "User")
-                        .WithMany("PasswordResetTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.Entities.RefreshTokenEntity", b =>
                 {
                     b.HasOne("Domain.Entities.UserEntity", "User")
@@ -296,12 +182,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.UserEntity", b =>
                 {
-                    b.Navigation("EmailVerificationTokens");
-
-                    b.Navigation("ExternalLogins");
-
-                    b.Navigation("PasswordResetTokens");
-
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("UserRoles");

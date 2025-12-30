@@ -24,6 +24,7 @@ namespace Infrastructure.Configurations
             builder.Property(u => u.CreateBy).HasMaxLength(256);
             builder.Property(u => u.CreatedOn).IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(u => u.UpdatedBy).HasMaxLength(256);
+
             builder.HasIndex(u => u.Email).IsUnique();
         }
     }

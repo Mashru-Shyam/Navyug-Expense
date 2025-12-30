@@ -17,6 +17,8 @@ namespace Infrastructure.Configurations
             builder.HasKey(r => r.Id);
             builder.Property(u => u.Id).ValueGeneratedOnAdd();
             builder.Property(u => u.RoleName).IsRequired().HasMaxLength(256);
+
+            builder.HasIndex(u => u.RoleName).IsUnique();
         }
     }
 }

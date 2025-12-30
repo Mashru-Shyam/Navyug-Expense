@@ -16,5 +16,9 @@ namespace Domain.Entities
         public bool IsTwoFactorEnabled { get; set; }
         public bool IsActive { get; set; }
         public ICollection<UserRoleEntity> UserRoles { get; set; }
+        public ICollection<RefreshTokenEntity> RefreshTokens { get; set; }
+        public ICollection<EmailVerificationTokenEntity> EmailVerificationTokens { get; set; }
+        public ICollection<PasswordResetTokenEntity> PasswordResetTokens { get; set; }
+        public ICollection<ExternalLoginEntity> ExternalLogins { get; set; }
     }
 }

@@ -16,6 +16,11 @@ namespace Infrastructure.Data
         DbSet<UserEntity> Users { get; set; }
         DbSet<RoleEntity> Roles { get; set; }
         DbSet<UserRoleEntity> UserRoles { get; set; }
+        DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
+        DbSet<EmailVerificationTokenEntity> EmailVerificationTokens{ get; set; }
+        DbSet<PasswordResetTokenEntity> PasswordResetTokens{ get; set; }
+        DbSet<ExternalLoginEntity> ExternalLogins{ get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
