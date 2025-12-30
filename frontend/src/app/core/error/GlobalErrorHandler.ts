@@ -5,7 +5,7 @@ export class GlobalErrorHandler implements ErrorHandler {
   constructor(private logger: LoggerService) {}
 
   handleError(error: unknown): void {
-    this.logger.error('Unhandled UI Error', error);
+    this.logger.error('Global Exception occurred in .handleError() method', error);
     console.error(error);
   }
 }

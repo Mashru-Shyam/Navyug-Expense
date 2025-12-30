@@ -21,7 +21,7 @@ namespace API.Middleware
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Unhandled exception");
+                _logger.LogError(ex, "Global Exception occured");
 
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
