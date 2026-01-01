@@ -1,3 +1,4 @@
+using Application.Exceptions;
 using Shared.Responses;
 
 namespace API.Middleware
@@ -19,15 +20,32 @@ namespace API.Middleware
             {
                 await _next(context);
             }
+            catch (ConflictException cex)
+            {
+                _logger.LogInformation(cex.Message);
+                context.Response.StatusCode = 409;
+                context.Response.ContentType = "application/json";
+
+                await context.Response.WriteAsJsonAsync(
+                    APIResponse.Fail(cex.Message));
+            } catch (NotFoundException nfe)
+            {
+                _logger.LogInformation(nfe.Message);
+                context.Response.StatusCode = 400;
+                context.Response.ContentType = "application/json";
+
+                await context.Response.WriteAsJsonAsync(
+                    APIResponse.Fail(nfe.Message));
+            }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Global Exception occured");
+                _logger.LogError(ex, "Backend Log : Global Exception occured");
 
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
 
                 await context.Response.WriteAsJsonAsync(
-                    APIResponse.Fail("Internal Server Error", context.Items["X-Correlation-Id"]?.ToString()));
+                    APIResponse.Fail(ex.Message));
             }
         }
     }

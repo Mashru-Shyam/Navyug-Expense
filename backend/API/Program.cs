@@ -1,5 +1,12 @@
 using API.Middleware;
+using Application.Common.Behaviour;
+using Application.Common.Settings;
+using Application.Interfaces;
+using FluentValidation;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
+using Infrastructure.Services;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -18,6 +25,22 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .WriteTo.Console();
 });
 
+builder.Services.Configure<RedirectionSettings>(
+    builder.Configuration.GetSection("Redirection"));
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmailVerificationTokenRepository, EmailVerificationTokenRepositroy>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddValidatorsFromAssembly(typeof(ValidationBehaviour<,>).Assembly);
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(ValidationBehaviour<,>).Assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,11 +53,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
+
 app.UseMiddleware<CorrelationMiddleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

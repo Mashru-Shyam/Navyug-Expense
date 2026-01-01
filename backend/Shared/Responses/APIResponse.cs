@@ -11,12 +11,14 @@ namespace Shared.Responses
         public bool Success { get; set; }
         public string? Message { get; set; }
         public object? Data { get; set; }
-        public string? TraceId { get; set; }
 
-        public static APIResponse Ok(object data, string? traceId, string message = "Success")
-            => new() { Success = true, Data = data, Message = message, TraceId = traceId };
+        public static APIResponse Ok(string message)
+           => new() { Success = true, Message = message };
 
-        public static APIResponse Fail(string message, string? traceId)
-            => new() { Success = false, Message = message, TraceId = traceId };
+        public static APIResponse Ok(object? data, string message)
+            => new() { Success = true, Data = data, Message = message};
+
+        public static APIResponse Fail(string message)
+            => new() { Success = false, Message = message};
     }
 }

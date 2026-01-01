@@ -13,13 +13,13 @@ namespace Infrastructure.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        DbSet<UserEntity> Users { get; set; }
-        DbSet<RoleEntity> Roles { get; set; }
-        DbSet<UserRoleEntity> UserRoles { get; set; }
-        DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
-        DbSet<EmailVerificationTokenEntity> EmailVerificationTokens{ get; set; }
-        DbSet<PasswordResetTokenEntity> PasswordResetTokens{ get; set; }
-        DbSet<ExternalLoginEntity> ExternalLogins{ get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<RoleEntity> Roles { get; set; }
+        public DbSet<UserRoleEntity> UserRoles { get; set; }
+        public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
+        public DbSet<EmailVerificationTokenEntity> EmailVerificationTokens{ get; set; }
+        public DbSet<PasswordResetTokenEntity> PasswordResetTokens{ get; set; }
+        public DbSet<ExternalLoginEntity> ExternalLogins{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

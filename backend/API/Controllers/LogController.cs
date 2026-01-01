@@ -23,21 +23,21 @@ namespace API.Controllers
             {
                 case "information":
                 case "info":
-                    _logger.LogInformation("Frontend Log: {Message} | Data: {Data} | CorrelationId: {CorrelationId}", request.Message, request.Data, request.CorrelationId);
+                    _logger.LogInformation("Frontend Log: {Message}", request.Message);
                     break;
                 case "warning":
                 case "warn":
-                    _logger.LogWarning("Frontend Log: {Message} | Data: {Data} | CorrelationId: {CorrelationId}", request.Message, request.Data, request.CorrelationId);
+                    _logger.LogWarning("Frontend Log: {Message}", request.Message);
                     break;
                 case "error":
-                    _logger.LogError("Frontend Log: {Message} | Data: {Data} | CorrelationId: {CorrelationId}", request.Message, request.Data, request.CorrelationId);
+                    _logger.LogError("Frontend Log: {Message} | {Data}", request.Message, request.Data);
                     break;
                 default:
-                    _logger.LogInformation("Frontend Log (Unknown Level): {Message} | Data: {Data} | CorrelationId: {CorrelationId}", request.Message, request.Data, request.CorrelationId);
+                    _logger.LogInformation("Frontend Log: {Message}", request.Message);
                     break;
             }
 
-            return Ok(APIResponse.Ok("Log Added",request.CorrelationId));
+            return Ok(APIResponse.Ok("Log Added Sucessfully"));
         }
     }
 }
