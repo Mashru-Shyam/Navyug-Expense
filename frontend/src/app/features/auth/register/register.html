@@ -1,0 +1,38 @@
+<form class="space-y-4">
+
+  <div>
+    <label class="block text-sm font-medium text-slate-600">
+      Email address
+    </label>
+    <input type="email" class="mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm
+             focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-slate-600">
+      Password
+    </label>
+    <input type="password" class="mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm
+             focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-slate-600">
+      Confirm password
+    </label>
+    <input type="password" class="mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm
+             focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+  </div>
+
+  <button type="submit" class="w-full rounded-lg bg-indigo-600 py-2.5 text-sm font-semibold text-white
+           hover:bg-indigo-700 transition">
+    Create wallet
+  </button>
+
+  <p class="text-center text-sm text-slate-500 mt-4">
+    Already have a wallet?
+    <a routerLink="/auth/login" class="text-indigo-600 hover:underline">
+      Sign in
+    </a>
+  </p>
+</form>

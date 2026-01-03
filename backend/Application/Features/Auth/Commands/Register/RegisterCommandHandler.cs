@@ -59,7 +59,7 @@ namespace Application.Features.Auth.Commands.Register
 
             await _emailVerificationTokenRepository.CreateAsync(emailToken, cancellationToken);
 
-            var verifyUrl =$"{_redirection.FrontendBaseUrl}/verify-email?token={token}";
+            var verifyUrl =$"{_redirection.FrontendBaseUrl}/auth/verify-email?token={token}";
 
             await _emailService.SendAsync(
                 request.Email,

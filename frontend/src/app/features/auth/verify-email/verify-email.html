@@ -1,0 +1,31 @@
+<div class="text-center space-y-4">
+
+  <!-- Loading -->
+  <div *ngIf="status === 'loading'" class="text-slate-600">
+    Verifying your email securely…
+  </div>
+
+  <!-- Success -->
+  <div *ngIf="status === 'success'" class="space-y-2">
+    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600">
+      ✓
+    </div>
+    <p class="font-medium text-green-700">
+      Email verified successfully
+    </p>
+    <p class="text-sm text-slate-500">
+      Redirecting you to login…
+    </p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="status === 'error'" class="space-y-2">
+    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600">
+      ✕
+    </div>
+    <p class="font-medium text-red-600">
+      Verification link invalid or expired
+    </p>
+  </div>
+
+</div>

@@ -15,8 +15,8 @@ namespace Shared.Responses
         public static APIResponse Ok(string message)
            => new() { Success = true, Message = message };
 
-        public static APIResponse Ok(object? data, string message)
-            => new() { Success = true, Data = data, Message = message};
+        public static APIResponse Ok(object? data)
+            => new() { Success = true, Data = data, Message = "Success"};
 
         public static APIResponse Fail(string message)
             => new() { Success = false, Message = message};

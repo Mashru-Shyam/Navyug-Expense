@@ -1,0 +1,37 @@
+<form class="space-y-4">
+
+    <!-- Email -->
+    <div>
+        <label class="block text-sm font-medium text-slate-600">
+            Email address
+        </label>
+        <input type="email" placeholder="you@navyug.com" class="mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm
+             focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+    </div>
+
+    <!-- Password -->
+    <div>
+        <label class="block text-sm font-medium text-slate-600">
+            Password
+        </label>
+        <input type="password" placeholder="••••••••" class="mt-1 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm
+             focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+    </div>
+
+    <!-- Login button -->
+    <button type="submit" class="mt-2 w-full rounded-lg bg-indigo-600 py-2.5 text-sm font-semibold text-white
+           hover:bg-indigo-700 transition">
+        Sign in securely
+    </button>
+
+    <!-- Links -->
+    <div class="flex justify-between text-sm text-indigo-600 mt-3">
+        <a routerLink="/auth/forgot-password" class="hover:underline">
+            Forgot password?
+        </a>
+        <a routerLink="/auth/register" class="hover:underline">
+            Create account
+        </a>
+    </div>
+
+</form>

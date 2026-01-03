@@ -13,5 +13,6 @@ namespace Application.Interfaces
         public Task SaveAsync(UserEntity user, CancellationToken cancellationToken);
         public Task<bool> IsEmailUniqueAsync (string? email, CancellationToken cancellationToken);
         public Task UpdateAsync(UserEntity user, CancellationToken cancellationToken);
+        public Task<UserEntity?> GetAsync(string? email, CancellationToken cancellationToken);
     }
 }

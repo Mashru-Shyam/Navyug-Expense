@@ -29,10 +29,14 @@ builder.Services.Configure<RedirectionSettings>(
     builder.Configuration.GetSection("Redirection"));
 builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection("EmailSettings"));
+builder.Services.Configure<JWTTokenSettings>(
+    builder.Configuration.GetSection("Jwt"));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEmailVerificationTokenRepository, EmailVerificationTokenRepositroy>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+builder.Services.AddScoped<IJWTTokenService, JWTTokenService>();
 
 builder.Services.AddValidatorsFromAssembly(typeof(ValidationBehaviour<,>).Assembly);
 builder.Services.AddMediatR(cfg =>
@@ -40,6 +44,19 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(ValidationBehaviour<,>).Assembly);
     cfg.AddOpenBehavior(typeof(ValidationBehaviour<,>));
 });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -53,12 +70,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAngular"); // MUST be before auth & endpoints
+app.UseHttpsRedirection();
+
+
 app.UseSerilogRequestLogging();
 
 app.UseMiddleware<CorrelationMiddleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
-app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();

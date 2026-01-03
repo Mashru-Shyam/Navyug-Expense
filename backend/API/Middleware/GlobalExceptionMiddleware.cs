@@ -28,7 +28,8 @@ namespace API.Middleware
 
                 await context.Response.WriteAsJsonAsync(
                     APIResponse.Fail(cex.Message));
-            } catch (NotFoundException nfe)
+            }
+            catch (NotFoundException nfe)
             {
                 _logger.LogInformation(nfe.Message);
                 context.Response.StatusCode = 400;
@@ -36,6 +37,24 @@ namespace API.Middleware
 
                 await context.Response.WriteAsJsonAsync(
                     APIResponse.Fail(nfe.Message));
+            }
+            catch (UnauthorizedException ue)
+            {
+                _logger.LogInformation(ue.Message);
+                context.Response.StatusCode = 40;
+                context.Response.ContentType = "application/json";
+
+                await context.Response.WriteAsJsonAsync(
+                    APIResponse.Fail(ue.Message));
+            }
+            catch (BadRequestException bre)
+            {
+                _logger.LogInformation(bre.Message);
+                context.Response.StatusCode = 400;
+                context.Response.ContentType = "application/json";
+
+                await context.Response.WriteAsJsonAsync(
+                    APIResponse.Fail(bre.Message));
             }
             catch (Exception ex)
             {

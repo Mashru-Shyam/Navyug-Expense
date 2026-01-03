@@ -20,6 +20,11 @@ namespace Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<UserEntity?> GetAsync(string? email, CancellationToken cancellationToken)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+        }
+
         public async Task<bool> IsEmailUniqueAsync(string? email, CancellationToken cancellationToken)
         {
             return !await _context.Users.AnyAsync(u => u.Email == email, cancellationToken);
